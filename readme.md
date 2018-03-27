@@ -7,7 +7,7 @@ En este pequeño proyecto haremos uso de Laravel y del componente de Vue.js llam
 ## Configuración
 
 ``` bash
-# Clonar Repositorio del curso de Laravel Passport
+# Clonar Repositorio del curso
 git clone https://github.com/castilloedwin/infinite-scroll.git
 
 # Instalar Dependencias
@@ -23,4 +23,4 @@ php artisan migrate --seed
 
 ## License
 
-MIT (c) 2017 [Edwin Castillo](https://www.twitter.com/Castilloe2)
+MIT (c) 2018 [Edwin Castillo](https://www.twitter.com/Castilloe2)
