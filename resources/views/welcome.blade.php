@@ -27,7 +27,6 @@
 
             .flex-center {
                 align-items: center;
-                display: flex;
                 justify-content: center;
             }
 
@@ -79,17 +78,13 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Infinite Scroll
                 </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div id="app">
+                    <posts></posts>
                 </div>
             </div>
         </div>
     </body>
+    <script src="/js/app.js"></script>
 </html>
