@@ -1,20 +1,26 @@
 <template>
 	<div>
-		<div class="post" v-for="post in posts">
-            <div class="post-title">{{ post.title }}</div>
+		<div class="post" v-for="post, index in posts">
+            <div class="post-title">{{ index + 1 }} {{ post.title }}</div>
             <div class="post-body">{{ post.body }}</div>
         </div>
+        <infinite-loading @infinite="infiniteHandler">
+        	<span slot="no-more">
+        		No hay más datos que cargar :(
+        	</span>
+        </infinite-loading>
 	</div>
 </template>
 
 <script>
 	
 	import axios from 'axios';
+	import InfiniteLoading from 'vue-infinite-loading';
 
 	export default {
 
 		created() {
-			this.getPosts()
+			this.getPosts();
 		},
 		data() {
 			return {
@@ -29,6 +35,26 @@
 					this.posts = response.data.posts;
 				});
 
+			},
+			infiniteHandler: function ($state) {
+				let limit = this.posts.length + 40;
+				axios.get('/posts', { params: { limit: limit } }).then(response => {
+					this.loadMore($state, response);
+				});
+			},
+			loadMore: function ($state, response) {
+				if ( response.data.posts.length ) {
+					this.posts = response.data.posts;
+					setTimeout(() => {
+						$state.loaded();
+					}, 3000);
+
+					if ( response.data.total == this.posts.length ) {
+						$state.complete();
+					}
+				} else {
+					$state.complete();
+				}
 			}
 
 		}
