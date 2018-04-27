@@ -47581,25 +47581,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this = this;
 
 			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/posts').then(function (response) {
-				_this.posts = response.data.posts;
+				_this.posts = response.data.data;
+				console.log(response.data);
 			});
 		},
 		infiniteHandler: function infiniteHandler($state) {
 			var _this2 = this;
 
-			var limit = this.posts.length + 40;
-			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/posts', { params: { limit: limit } }).then(function (response) {
+			var limit = this.posts.length / 40 + 1;
+			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/posts', { params: { page: limit } }).then(function (response) {
 				_this2.loadMore($state, response);
 			});
 		},
 		loadMore: function loadMore($state, response) {
-			if (response.data.posts.length) {
-				this.posts = response.data.posts;
+			if (response.data.data.length) {
+				this.posts = this.posts.concat(response.data.data);
 				setTimeout(function () {
 					$state.loaded();
 				}, 3000);
 
-				if (response.data.total == this.posts.length) {
+				if (response.total == this.posts.length) {
 					$state.complete();
 				}
 			} else {

@@ -32,24 +32,25 @@
 			getPosts: function () {
 
 				axios.get('/posts').then(response => {
-					this.posts = response.data.posts;
+					this.posts = response.data.data;
+					console.log(response.data);
 				});
 
 			},
 			infiniteHandler: function ($state) {
-				let limit = this.posts.length + 40;
-				axios.get('/posts', { params: { limit: limit } }).then(response => {
+				let limit = this.posts.length / 40 + 1;
+				axios.get('/posts', { params: { page: limit } }).then(response => {
 					this.loadMore($state, response);
 				});
 			},
 			loadMore: function ($state, response) {
-				if ( response.data.posts.length ) {
-					this.posts = response.data.posts;
+				if ( response.data.data.length ) {
+					this.posts = this.posts.concat(response.data.data);
 					setTimeout(() => {
 						$state.loaded();
 					}, 3000);
 
-					if ( response.data.total == this.posts.length ) {
+					if ( response.total == this.posts.length ) {
 						$state.complete();
 					}
 				} else {
