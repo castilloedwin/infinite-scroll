@@ -33,7 +33,6 @@
 
 				axios.get('/posts').then(response => {
 					this.posts = response.data.data;
-					console.log(response.data);
 				});
 
 			},
@@ -50,7 +49,7 @@
 						$state.loaded();
 					}, 3000);
 
-					if ( response.total == this.posts.length ) {
+					if ( response.data.total == this.posts.length ) {
 						$state.complete();
 					}
 				} else {

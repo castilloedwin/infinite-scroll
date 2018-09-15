@@ -47582,7 +47582,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/posts').then(function (response) {
 				_this.posts = response.data.data;
-				console.log(response.data);
 			});
 		},
 		infiniteHandler: function infiniteHandler($state) {
@@ -47600,7 +47599,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					$state.loaded();
 				}, 3000);
 
-				if (response.total == this.posts.length) {
+				if (response.data.total == this.posts.length) {
 					$state.complete();
 				}
 			} else {
